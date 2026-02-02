@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/Users/niraka/Documents/Projects/KANASS/cmake-build-debug",
+  "command": "/usr/bin/c++  -I/usr/local/include -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -g -std=gnu++2b -fcolor-diagnostics -o CMakeFiles/KANASS.dir/main.cpp.o -c /Users/niraka/Documents/Projects/KANASS/main.cpp",
+  "file": "/Users/niraka/Documents/Projects/KANASS/main.cpp",
+  "output": "CMakeFiles/KANASS.dir/main.cpp.o"
+},
+{
+  "directory": "/Users/niraka/Documents/Projects/KANASS/cmake-build-debug",
+  "command": "/usr/bin/c++  -I/usr/local/include -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -g -std=gnu++2b -fcolor-diagnostics -o CMakeFiles/KANASS.dir/kana.cpp.o -c /Users/niraka/Documents/Projects/KANASS/kana.cpp",
+  "file": "/Users/niraka/Documents/Projects/KANASS/kana.cpp",
+  "output": "CMakeFiles/KANASS.dir/kana.cpp.o"
+},
+{
+  "directory": "/Users/niraka/Documents/Projects/KANASS/cmake-build-debug",
+  "command": "/usr/bin/c++  -I/usr/local/include -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -g -std=gnu++2b -fcolor-diagnostics -o CMakeFiles/KANASS.dir/KanaGame.cpp.o -c /Users/niraka/Documents/Projects/KANASS/KanaGame.cpp",
+  "file": "/Users/niraka/Documents/Projects/KANASS/KanaGame.cpp",
+  "output": "CMakeFiles/KANASS.dir/KanaGame.cpp.o"
+}
+]
