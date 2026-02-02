@@ -1,0 +1,3 @@
+C:/Users/rober/CLionProjects/KANASS/cmake-build-debug/CMakeFiles/KANASS.dir
+C:/Users/rober/CLionProjects/KANASS/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/rober/CLionProjects/KANASS/cmake-build-debug/CMakeFiles/rebuild_cache.dir

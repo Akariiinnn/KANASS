@@ -1,0 +1,14 @@
+[
+{
+  "directory": "C:/Users/rober/CLionProjects/KANASS/cmake-build-debug-visual-studio",
+  "command": "C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++latest -MDd -Zi /FoCMakeFiles\\KANASS.dir\\main.cpp.obj /FdCMakeFiles\\KANASS.dir\\ /FS -c C:\\Users\\rober\\CLionProjects\\KANASS\\main.cpp",
+  "file": "C:/Users/rober/CLionProjects/KANASS/main.cpp",
+  "output": "C:/Users/rober/CLionProjects/KANASS/cmake-build-debug-visual-studio/CMakeFiles/KANASS.dir/main.cpp.obj"
+},
+{
+  "directory": "C:/Users/rober/CLionProjects/KANASS/cmake-build-debug-visual-studio",
+  "command": "C:\\PROGRA~2\\MICROS~3\\2022\\BUILDT~1\\VC\\Tools\\MSVC\\1444~1.352\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++latest -MDd -Zi /FoCMakeFiles\\KANASS.dir\\kana.cpp.obj /FdCMakeFiles\\KANASS.dir\\ /FS -c C:\\Users\\rober\\CLionProjects\\KANASS\\kana.cpp",
+  "file": "C:/Users/rober/CLionProjects/KANASS/kana.cpp",
+  "output": "C:/Users/rober/CLionProjects/KANASS/cmake-build-debug-visual-studio/CMakeFiles/KANASS.dir/kana.cpp.obj"
+}
+]
