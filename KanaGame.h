@@ -10,6 +10,7 @@
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Output.H>
+#include <string>
 #include "kana.h"
 
 class KanaGame {
@@ -24,6 +25,7 @@ public:
 private:
     Kana* kana_game;
     string current_kana;
+    bool is_special_kana;
     bool is_hiragana;
     Fl_Box* kana_display;
     Fl_Input* romaji_input;

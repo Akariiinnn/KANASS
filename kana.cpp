@@ -4,6 +4,7 @@
 
 #include "kana.h"
 #include <cstring>
+#include <iostream>
 using namespace std;
 
 bool is_shorter_than_2(const char* s) {
@@ -26,6 +27,9 @@ Kana::Kana() {
     setKatakanas();
     setHiraganas();
     setRomajis();
+    setSpecialRomajis();
+    setSpecialHiraganas();
+    setSpecialKatakanas();
 }
 
 void Kana::setRomajis() {
@@ -82,7 +86,81 @@ void Kana::setKatakanas() {
     this->katakanas[14] = {"パ","ピ","プ","ペ","ポ"};
 }
 
-array<const char*, 2> Kana::getKana(const char* c) const {
+void Kana::setSpecialHiraganas() {
+    this->specialHiraganas[0] = {"きゃ","きゅ","きょ"};
+    this->specialHiraganas[1] = {"ぎゃ","ぎゅ","ぎょ"};
+    this->specialHiraganas[2] = {"しゃ","しゅ","しょ"};
+    this->specialHiraganas[3] = {"じゃ","じゅ","じょ"};
+    this->specialHiraganas[4] = {"ちゃ","ちゅ","ちょ"};
+    this->specialHiraganas[5] = {"にゃ","にゅ","にょ"};
+    this->specialHiraganas[6] = {"ひゃ","ひゅ","ひょ"};
+    this->specialHiraganas[7] = {"びゃ","びゅ","びょ"};
+    this->specialHiraganas[8] = {"ぴゃ","ぴゅ","ぴょ"};
+    this->specialHiraganas[9] = {"みゃ","みゅ","みょ"};
+    this->specialHiraganas[10] = {"りゃ","りゅ","りょ"};
+}
+
+void Kana::setSpecialRomajis() {
+    this->specialRomajis[0] = {"kya","kyu","kyo"};
+    this->specialRomajis[1] = {"gya","gyu","gyo"};
+    this->specialRomajis[2] = {"sha","shu","sho"};
+    this->specialRomajis[3] = {"jya","jyu","jyo"};
+    this->specialRomajis[4] = {"cha","chu","cho"};
+    this->specialRomajis[5] = {"nya","nyu","nyo"};
+    this->specialRomajis[6] = {"hya","hyu","hyo"};
+    this->specialRomajis[7] = {"bya","byu","byo"};
+    this->specialRomajis[8] = {"pya","pyu","pyo"};
+    this->specialRomajis[9] = {"mya","myu","myo"};
+    this->specialRomajis[10] = {"rya","ryu","ryo"};
+}
+
+void Kana::setSpecialKatakanas() {
+    this->specialKatakanas[0] = {"キャ","キュ","キョ"};
+    this->specialKatakanas[1] = {"ギャ","ギュ","ギョ"};
+    this->specialKatakanas[2] = {"シャ","シュ","ショ"};
+    this->specialKatakanas[3] = {"ジャ","ジュ","ジョ"};
+    this->specialKatakanas[4] = {"チャ","チュ","チョ"};
+    this->specialKatakanas[5] = {"ニャ","ニュ","ニョ"};
+    this->specialKatakanas[6] = {"ヒャ","ヒュ","ヒョ"};
+    this->specialKatakanas[7] = {"ビャ","ビュ","ビョ"};
+    this->specialKatakanas[8] = {"ピャ","ピュ","ピョ"};
+    this->specialKatakanas[9] = {"ミャ","ミュ","ミョ"};
+    this->specialKatakanas[10] = {"リャ","リュ","リョ"};
+}
+
+array<const char*,2> Kana::getKana(const char* c, bool katakana, bool special) const {
+    std::cout << c << std::endl;
+    if (!special) {
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 5; j++) {
+                std::cout << c << " = " << this->romajis[i][j] << std::endl;
+                std::cout << std::strcmp(c, this->romajis[i][j]) << std::endl;
+                if (std::strcmp(c, this->romajis[i][j]) == 0) {
+                    if (katakana) {
+                        std::cout << "hrk" << std::endl;
+                        return {this->katakanas[i][j]};
+                    }
+                        std::cout << "hrh" << std::endl;
+                    return {this->hiraganas[i][j]};
+                }
+            }
+        }
+    } else {
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (std::strcmp(c, this->specialRomajis[i][j]) == 0) {
+                    if (katakana) {
+                        return {this->specialKatakanas[i][j]};
+                    }
+                    return {this->specialHiraganas[i][j]};
+                }
+            }
+        }
+    }
+    return {"This kana doesn't exist"};
+}
+
+/*array<const char*, 2> Kana::getKana(const char* c) const {
     constexpr char vowels[6] = {'a','i','u','e','o', 'n'};
     constexpr char consonants[14] = {'k', 's', 't', 'n', 'h','m','y', 'r', 'w', 'g', 'z', 'd', 'b', 'p'};
     const char* specialKanas[7] = {"shi","chi","tsu", "ji", "fu", "dji", "dzu"};
@@ -159,4 +237,4 @@ array<const char*, 2> Kana::getKana(const char* c) const {
     }
 
     return {result};
-}
+}*/

@@ -9,6 +9,9 @@
 #include <FL/Fl_Output.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Window.H>
+#include <iostream>
+
+using namespace std;
 
 KanaGame::KanaGame(int argc, char** argv) {
     srand(static_cast<unsigned>(time(nullptr)));
@@ -79,19 +82,26 @@ void KanaGame::start_cb(Fl_Widget* w, void* data) {
 
 void KanaGame::check_cb(Fl_Widget* w, void* data) {
     auto* self = static_cast<KanaGame*>(data);
+    bool nope = false;
     string user = self->romaji_input->value();
     if (user.empty()) return;
 
     // Use your existing getKana function
-    auto result = self->kana_game->getKana(user.c_str());
+    auto result = self->kana_game->getKana(user.c_str(), !self->is_hiragana, self->is_special_kana);
 
-    // result[0] = hiragana, result[1] = katakana
-    string provided = self->is_hiragana ? result[0] : result[1];
+    std::cout << result[0] << std::endl;
 
-    if (provided == self->current_kana) {
+    if (result[0] == "This kana doesn't exist") {
+        string msg = "Ce kana n'existe pas!!";
+        self->feedback->value(msg.c_str());
+        self->feedback->textcolor(FL_RED);
+        return;
+    }
+
+    if (strcmp(result[0], self->current_kana.c_str()) == 0) {
         self->feedback->value("Correct! ✓");
         self->feedback->textcolor(FL_DARK_GREEN);
-    } else {
+    } else{
         string msg = "Incorrect! C'était: " + self->current_romaji;
         self->feedback->value(msg.c_str());
         self->feedback->textcolor(FL_RED);
@@ -105,23 +115,45 @@ void KanaGame::next_cb(Fl_Widget* w, void* data) {
     auto* self = static_cast<KanaGame*>(data);
     // Reuse your original randomization logic
     int hira_or_kata = rand() % 2;
+    int special_kana = rand() % 10;
     self->is_hiragana = (hira_or_kata == 0);
+    self->is_special_kana = (special_kana == 0);
 
-    int row = rand() % 15;
-    int col = rand() % 5;
+    int row, col;
 
-    self->current_kana = self->is_hiragana
-                   ? self->kana_game->hiraganas[row][col]
-                   : self->kana_game->katakanas[row][col];
+    bool valid = false;
 
-    self->current_romaji = self->kana_game->romajis[row][col];
+    while (!valid) {
+        if (self->is_special_kana) {
+            row = rand() % 11;
+            col = rand() % 3;
 
-    // Skip empty slots (like small ya/yu/yo positions)
-    while (self->current_kana.empty() || self->current_kana == " " || self->current_kana == "") {
-        col = rand() % 5;
-        self->current_kana = self->is_hiragana
-                       ? self->kana_game->hiraganas[row][col]
-                       : self->kana_game->katakanas[row][col];
+            cout << row << " " << col << endl;
+
+            self->current_kana = self->is_hiragana
+                ? self->kana_game->specialHiraganas[row][col]
+                : self->kana_game->specialKatakanas[row][col];
+
+            cout << "crash before get special romaji" << endl;
+
+            self->current_romaji = self->kana_game->specialRomajis[row][col];
+        } else {
+            row = rand() % 15;
+            col = rand() % 5;
+
+            self->current_kana = self->is_hiragana
+                ? self->kana_game->hiraganas[row][col]
+                : self->kana_game->katakanas[row][col];
+
+            self->current_romaji = self->kana_game->romajis[row][col];
+        }
+
+        // Check if we got something usable
+        if (!self->current_kana.empty() &&
+            self->current_kana != " " &&
+            self->current_kana != "") {
+            valid = true;
+            }
     }
 
     self->kana_display->copy_label(self->current_kana.c_str());
