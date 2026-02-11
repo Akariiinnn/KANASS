@@ -8,19 +8,15 @@
 using namespace std;
 
 bool is_shorter_than_2(const char* s) {
-    return s == nullptr
-           || s[0]== '\0'
-           || s[1] == '\0';
+    return !s || s[0] == '\0' || s[1] == '\0';
 }
 
 bool is_2(const char* s) {
-    return s == nullptr
-           || (s[2] == '\0' && s[1] != '\0');
+    return s && s[1] != '\0' && s[2] == '\0';
 }
 
 bool is_3(const char* s) {
-    return s == nullptr
-           || (s[3] == '\0' && (s[1] != '\0' && s[2] != '\0'));
+    return s && s[1] != '\0' && s[2] != '\0' && s[3] == '\0';
 }
 
 Kana::Kana() {
@@ -129,19 +125,11 @@ void Kana::setSpecialKatakanas() {
 }
 
 array<const char*,2> Kana::getKana(const char* c, bool katakana, bool special) const {
-    std::cout << c << std::endl;
     if (!special) {
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 5; j++) {
-                std::cout << c << " = " << this->romajis[i][j] << std::endl;
-                std::cout << std::strcmp(c, this->romajis[i][j]) << std::endl;
                 if (std::strcmp(c, this->romajis[i][j]) == 0) {
-                    if (katakana) {
-                        std::cout << "hrk" << std::endl;
-                        return {this->katakanas[i][j]};
-                    }
-                        std::cout << "hrh" << std::endl;
-                    return {this->hiraganas[i][j]};
+                    return {katakana ? this->katakanas[i][j] : this->hiraganas[i][j]};
                 }
             }
         }
@@ -149,10 +137,7 @@ array<const char*,2> Kana::getKana(const char* c, bool katakana, bool special) c
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 3; j++) {
                 if (std::strcmp(c, this->specialRomajis[i][j]) == 0) {
-                    if (katakana) {
-                        return {this->specialKatakanas[i][j]};
-                    }
-                    return {this->specialHiraganas[i][j]};
+                    return {katakana ? this->specialKatakanas[i][j] : this->specialHiraganas[i][j]};
                 }
             }
         }
@@ -160,81 +145,3 @@ array<const char*,2> Kana::getKana(const char* c, bool katakana, bool special) c
     return {"This kana doesn't exist"};
 }
 
-/*array<const char*, 2> Kana::getKana(const char* c) const {
-    constexpr char vowels[6] = {'a','i','u','e','o', 'n'};
-    constexpr char consonants[14] = {'k', 's', 't', 'n', 'h','m','y', 'r', 'w', 'g', 'z', 'd', 'b', 'p'};
-    const char* specialKanas[7] = {"shi","chi","tsu", "ji", "fu", "dji", "dzu"};
-
-    array<const char*, 2> result = {"This kana doesn't exist"};
-
-    for(int i = 0; i<7; i++) {
-        if(strcmp(specialKanas[i],c) == 0) {
-            int specialKanasPlaces[2][7] = {
-                {2,3,3,11,5,12,12}, // x position
-                {1,1,2,1,2,1,2} // y position
-            };
-            const char* h = this->hiraganas[specialKanasPlaces[0][i]][specialKanasPlaces[1][i]];
-            const char* k = this->katakanas[specialKanasPlaces[0][i]][specialKanasPlaces[1][i]];
-            return {h, k};
-        }
-    }
-
-    const char* hira = nullptr;
-    const char* kata = nullptr;
-
-    if(is_shorter_than_2(c)) {
-        const int vowel = c[0];
-        if(vowel == 'n') {
-            hira = this->hiraganas[9][2];
-            kata = this->katakanas[9][2];
-        }
-        for(int i = 0; i<5; i++)
-        {
-            if(vowel == vowels[i]) {
-                hira = this->hiraganas[0][i];
-                kata = this->katakanas[0][i];
-            }
-        }
-    }
-    else if(is_2(c)) {
-        const int vowel = c[1];
-        const int consonant = c[0];
-        for(int i = 0; i<14; i++) {
-            if(consonant == consonants[i]) {
-                for(int k = 0; k<5; k++) {
-                    if(vowel == vowels[k]) {
-                        hira = this->hiraganas[i+1][k];
-                        kata = this->katakanas[i+1][k];
-                    }
-                }
-            }
-        }
-    }
-    else if(is_3(c)) {
-        result = {"three characters kanas not implemented yet"};
-    }
-
-    if(hira != nullptr && kata != nullptr) {
-        if(strlen(hira) > 0 && strlen(kata) > 0) {
-            result = {hira, kata};
-        }
-    }
-
-    //Reject romaji when it's a special kana and not written correctly (for example di, ti, zi) by comparing result with
-    //the first kana it gives so a hiragana and with the special kana itself using the specialkanasplaces array and looking
-    //in the hiraganas array
-    for(int i = 0; i<7; i++) {
-        int specialKanasPlaces[2][7] = {
-            {2,3,3,11,5,12,12}, // x position
-            {1,1,2,1,2,1,2} // y position
-        };
-        const char* h = this->hiraganas[specialKanasPlaces[0][i]][specialKanasPlaces[1][i]];
-        const char* k = this->katakanas[specialKanasPlaces[0][i]][specialKanasPlaces[1][i]];
-        array expectedResult = {h, k};
-        if(strcmp(c, specialKanas[i]) != 0 && result[0] == expectedResult[0]) {
-            result = {"This kana doesn't exist"};
-        }
-    }
-
-    return {result};
-}*/
